@@ -79,7 +79,7 @@ function getStatesOfPlayer(html){
                 let data=selTool(player_statsArr[j]).find("td");
                 let player_name=selTool(data[0]).text().trim();
                 //console.log(player_name);
-                createFile(player_name,teams_name[i]);
+                //createFile(player_name,teams_name[i]);
                 let match=teams_name[0]+" vs "+teams_name[1];
                 let player_run=selTool(data[2]).text().trim();
                 let balls_played=selTool(data[3]).text().trim();
@@ -98,8 +98,8 @@ function getStatesOfPlayer(html){
 
 
 function putStatsInJson(team_name,match,player_name,player_run,balls_played,four,six,strike_rate,winning_status){
-    let PlayerStatsJsonArr=[];
-    PlayerStatsJsonArr.push({
+
+    let stats_obj={
         match:match,
         player_name:player_name,
         Total_run:player_run,
@@ -108,9 +108,18 @@ function putStatsInJson(team_name,match,player_name,player_run,balls_played,four
         Total_six:six,
         Strike_rate:strike_rate,
         staus:winning_status
-    });
+    };
     let file_path=path.join(__dirname,team_name,player_name+".json");
-    fs.writeFileSync(file_path,JSON.stringify(PlayerStatsJsonArr));
+    if(fs.existsSync(file_path)==false){
+        let arr = []
+        arr.push(stats_obj)
+        fs.writeFileSync(file_path,JSON.stringify(arr))
+    }else{
+        let old_data=fs.readFileSync(file_path);
+        old_data=JSON.parse(old_data);
+        old_data.push(stats_obj);
+        fs.writeFileSync(file_path,JSON.stringify(old_data));
+    }
 
 }
 //to create a folder
