@@ -1,3 +1,6 @@
+
+https://user-images.githubusercontent.com/51274153/118363728-6d275600-b5b3-11eb-8f5b-558a9de93139.mp4
+
 **IPL TEAM PLAYER'S REPORT CARD**<br>
 It extract all the information of IPL team player and store it  in JSON file inside their respective team name folder.<h1></h1>
 
